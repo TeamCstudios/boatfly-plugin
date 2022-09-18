@@ -63,37 +63,36 @@ public class BoatFly extends JavaPlugin {
                 boatFlight(b,player);
             }
         });
-        public void boatFlight(Entity b, Player p){
-            if (b.getType() == EntityType.BOAT) {
-                    // Check to see if the player is in water
-                    if (b.getLocation().getBlock().isLiquid()) {
-                        return;
-                    }
-
-                    if (b.getPassengers().isEmpty()) {
-                        return;
-                    }
-                    Vector velocity = b.getVelocity();
-                    double motionY = velocity.getY();
-                    // Make sure motionY is never less than 0
-                    if (motionY <= 0) {
-                        motionY = 0;
-                        if(p.getInventory().getItemInMainHand().getType().equals(Material.STICK)) {
-                            motionY = 1;
-                        }
-                        if(p.getInventory().getItemInMainHand().getType().equals(Material.BLAZE_ROD)) {
-                            motionY = 2;
-                        }
-                    }
-                    if(p.getInventory().getItemInMainHand().getType().equals(Material.STICK)) {
-                        motionY += 0.5;
-                    }
-                    if(p.getInventory().getItemInMainHand().getType().equals(Material.BLAZE_ROD)) {
-                        motionY += 1;
-                    }
-                    b.setVelocity(new Vector(velocity.getX(), motionY, velocity.getZ()));
+    }
+    public void boatFlight(Entity b, Player p){
+        if (b.getType() == EntityType.BOAT) {
+            // Check to see if the player is in water
+            if (b.getLocation().getBlock().isLiquid()) {
+                return;
+            }
+            if (b.getPassengers().isEmpty()) {
+                return;
+            }
+            Vector velocity = b.getVelocity();
+            double motionY = velocity.getY();
+            // Make sure motionY is never less than 0
+            if (motionY <= 0) {
+                motionY = 0;
+                if(p.getInventory().getItemInMainHand().getType().equals(Material.STICK)) {
+                    motionY = 1;
                 }
-        }
+                if(p.getInventory().getItemInMainHand().getType().equals(Material.BLAZE_ROD)) {
+                    motionY = 2;
+                }
+            }
+            if(p.getInventory().getItemInMainHand().getType().equals(Material.STICK)) {
+                motionY += 0.5;
+            }
+            if(p.getInventory().getItemInMainHand().getType().equals(Material.BLAZE_ROD)) {
+                motionY += 1;
+            }
+            b.setVelocity(new Vector(velocity.getX(), motionY, velocity.getZ()));
+        } 
     }
 
     @Override
