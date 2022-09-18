@@ -1,5 +1,6 @@
 package org.jasonkaranik.boatfly;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -23,7 +24,7 @@ public class BoatFly extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        System.out.println("[BoatFly] BoatFly Enabled");
+        this.getLogger().info("BoatFly Enabled");
 
         plugin = this;
 
@@ -39,35 +40,46 @@ public class BoatFly extends JavaPlugin {
                 if (b == null) { return; }
                 if (b instanceof Player) { return; }
                 if (b.getType() == EntityType.BOAT) {
-                    if (player.hasPermission("boatfly.use")) {
-                        Vector velocity = b.getVelocity();
-                        double motionY = packet.getBooleans().read(0) ? 0.3 : 0;
-                        b.setVelocity(new Vector(velocity.getX(), motionY, velocity.getZ()));
+                    // Check to see if the player is in water
+                    if (b.getLocation().getBlock().isLiquid()) {
+                        return;
                     }
-                }
 
-                // if (packet.getFloat().read(1) > 0) {
-                // W
-                // }
-                // if (packet.getFloat().read(1) < 0) {
-                // S
-                // }
-                // if (packet.getFloat().read(0) > 0) {
-                // A
-                // }
-                // if (packet.getFloat().read(0) < 0) {
-                // D
-                // }
-                // if (packet.getBooleans().read(0)) {
-                // JUMP
-                // }
+                    if (b.getPassengers().isEmpty()) {
+                        return;
+                    }
+
+                    // Check if player is holding space
+//                    if (player.is()) {
+//                        return;
+//                    }
+                    Vector velocity = b.getVelocity();
+                    double motionY = velocity.getY();
+                    // Make sure motionY is never less than 0
+                    if (motionY < 0) {
+                        motionY = 0;
+                        if(player.getInventory().getItemInMainHand().getType().equals(Material.STICK)) {
+                            motionY = 1;
+                        }
+                        if(player.getInventory().getItemInMainHand().getType().equals(Material.BLAZE_ROD)) {
+                            motionY = 2;
+                        }
+                    }
+                    if(player.getInventory().getItemInMainHand().getType().equals(Material.STICK)) {
+                        motionY += 0.5;
+                    }
+                    if(player.getInventory().getItemInMainHand().getType().equals(Material.BLAZE_ROD)) {
+                        motionY += 1;
+                    }
+                    b.setVelocity(new Vector(velocity.getX(), motionY, velocity.getZ()));
+                }
             }
         });
     }
 
     @Override
     public void onDisable() {
-        System.out.println("[BoatFly] BoatFly Disabled");
+        this.getLogger().info("BoatFly Disabled");
         plugin = null;
     }
 }
