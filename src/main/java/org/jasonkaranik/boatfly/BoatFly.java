@@ -56,7 +56,7 @@ public class BoatFly extends JavaPlugin {
                     Vector velocity = b.getVelocity();
                     double motionY = velocity.getY();
                     // Make sure motionY is never less than 0
-                    if (motionY < 0) {
+                    if (motionY <= 0) {
                         motionY = 0;
                         if(player.getInventory().getItemInMainHand().getType().equals(Material.STICK)) {
                             motionY = 1;
