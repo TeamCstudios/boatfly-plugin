@@ -30,7 +30,7 @@ public class BoatFly extends JavaPlugin {
 
         protocolManager = ProtocolLibrary.getProtocolManager();
 
-        protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.HIGHEST, PacketType.Play.Client.STEER_VEHICLE) {
+        protocolManager.addPacketListener(new PacketAdapter(this, ListenerPriority.HIGHEST, PacketType.Play.Client.MOVE_VEHICLE) {
             @Override
             public void onPacketReceiving(PacketEvent event) {
                 PacketContainer packet = event.getPacket();
