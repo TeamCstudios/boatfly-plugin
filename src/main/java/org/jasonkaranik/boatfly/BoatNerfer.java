@@ -46,17 +46,17 @@ public class BoatNerfer implements Listener {
                 player.setFlying(true);
                 ItemStack mainHand = player.getInventory().getItemInMainHand();
                 ItemStack offHand = player.getInventory().getItemInOffHand();
-                boolean up = mainHand != null && mainHand.getType() == Material.STICK;
-
-                if (offHand != null && offHand.getType() == Material.STICK) {
-                    up = true;
-                }
-
+                boolean up = (mainHand != null && mainHand.getType() == Material.STICK) || (offHand != null && offHand.getType() == Material.STICK);
+                boolean down = (mainHand != null && mainHand.getType() == Material.LEVER) || (offHand != null && offHand.getType() == Material.LEVER);
+                
                 if (up) {
-                    player.sendActionBar("§a§lBoatFly §7- §a§lEnabled");
+                    player.sendActionBar("§a§lAscending");
                     event.getVehicle().setVelocity(new Vector(oldVector.getX(), oldVector.getY() + 1, oldVector.getZ()));
+                } else if (down){
+                    player.sendActionBar("§c§lDescending");
+                    event.getVehicle().setVelocity(new Vector(oldVector.getX(), oldVector.getY() - 1, oldVector.getZ()));
                 } else {
-                    player.sendActionBar("§a§lBoatFly §7- §c§lDisabled");
+                    player.sendActionBar("§e§lCoasting");
                 }
             }
         }
