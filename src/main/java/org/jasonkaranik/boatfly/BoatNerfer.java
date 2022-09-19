@@ -43,12 +43,11 @@ public class BoatNerfer implements Listener {
         for (Entity entity : entities) {
             if (entity instanceof Player) {
                 Player player = (Player) entity;
-                player.setFlying(true);
                 ItemStack mainHand = player.getInventory().getItemInMainHand();
                 ItemStack offHand = player.getInventory().getItemInOffHand();
                 boolean up = (mainHand != null && mainHand.getType() == Material.STICK) || (offHand != null && offHand.getType() == Material.STICK);
                 boolean down = (mainHand != null && mainHand.getType() == Material.LEVER) || (offHand != null && offHand.getType() == Material.LEVER);
-                
+
                 if (up) {
                     player.sendActionBar("§a§lAscending");
                     event.getVehicle().setVelocity(new Vector(oldVector.getX(), oldVector.getY() + 1, oldVector.getZ()));
@@ -76,7 +75,6 @@ public class BoatNerfer implements Listener {
             event.getDismounted().setGravity(true);
             if (event.getEntity() instanceof Player) {
                 Player player = (Player) event.getEntity();
-                player.setFlying(false);
                 player.sendActionBar("§a§lBoatFly §7- §c§lDisabled");
             }
         }
