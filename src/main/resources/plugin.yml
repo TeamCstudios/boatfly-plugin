@@ -3,4 +3,3 @@ main: org.jasonkaranik.boatfly.BoatFly
 version: 1.0.0
 author: Jasonkaranik
 api-version: 1.12
-depend: [ProtocolLib]

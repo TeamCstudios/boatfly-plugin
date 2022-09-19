@@ -7,6 +7,7 @@
 plugins {
     java
     `maven-publish`
+    id("xyz.jpenilla.run-paper") version "1.0.6"
 }
 
 repositories {
@@ -36,4 +37,8 @@ publishing {
     publications.create<MavenPublication>("maven") {
         from(components["java"])
     }
+}
+
+tasks.runServer {
+    minecraftVersion("1.12.2")
 }
